@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "425298774542",
+    "project_id": "ichat-backend-715a8",
+    "storage_bucket": "ichat-backend-715a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425298774542:android:4ac2e5d977583c869a4a5f",
+        "android_client_info": {
+          "package_name": "com.example.ichat_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "425298774542-pb88k8qm81h2l1loq2eh5l4hoddp38sv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHh_44K67K6pO6KNIZ5TCy9lSMilnAciE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "425298774542-pb88k8qm81h2l1loq2eh5l4hoddp38sv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
