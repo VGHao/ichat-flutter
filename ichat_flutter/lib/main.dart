@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:ichat_flutter/features/landing/screens/landing_screen.dart';
 import 'package:ichat_flutter/firebase_options.dart';
-
+import 'package:ichat_flutter/router.dart';
 import 'colors.dart';
 import 'screens/mobile_layout_screen.dart';
 import 'screens/web_layout_screen.dart';
@@ -25,11 +26,12 @@ class MyApp extends StatelessWidget {
       title: 'iChat',
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: backgroundColor,
+        appBarTheme: AppBarTheme(
+          color: appBarColor,
+        ),
       ),
-      home: const ResponsiveLayout(
-        mobileScreenLayout: MobileLayoutScreen(),
-        webScreenLayout: WebLayoutScreen(),
-      ),
+      onGenerateRoute: (settings) => generateRoute(settings),
+      home: LandingScreen(),
     );
   }
 }
