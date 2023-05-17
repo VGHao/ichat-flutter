@@ -3,6 +3,8 @@ import 'package:ichat_flutter/common/widgets/error.dart';
 import 'package:ichat_flutter/features/auth/screens/login_screen.dart';
 import 'package:ichat_flutter/features/auth/screens/otp_screen.dart';
 
+import 'features/auth/screens/user_information_screen.dart';
+
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case LoginScreen.routeName:
@@ -15,6 +17,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         builder: (context) => OTPScreen(
           verificationId: verificationId,
         ),
+      );
+    case UserInformationScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) => UserInformationScreen(),
       );
     default:
       return MaterialPageRoute(
