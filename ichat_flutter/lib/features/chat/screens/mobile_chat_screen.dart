@@ -1,11 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ichat_flutter/common/widgets/loader.dart';
 import 'package:ichat_flutter/features/auth/controller/auth_controller.dart';
 import 'package:ichat_flutter/models/user_model.dart';
 import '../../../colors.dart';
-import '../../../widgets/chat_list.dart';
+import '../widgets/chat_list.dart';
 import '../widgets/bottom_chat_field.dart';
 
 class MobileChatScreen extends ConsumerWidget {
@@ -54,7 +53,7 @@ class MobileChatScreen extends ConsumerWidget {
       body: Column(
         children: [
           Expanded(
-            child: ChatList(),
+            child: ChatList(receiverUserId: uid),
           ),
           BottomChatField(receiverUserId: uid),
         ],

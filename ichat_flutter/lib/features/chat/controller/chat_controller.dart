@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ichat_flutter/features/auth/controller/auth_controller.dart';
 import 'package:ichat_flutter/features/chat/repositories/chat_repository.dart';
+import 'package:ichat_flutter/models/message.dart';
 
 import '../../../models/chat_contact.dart';
 
@@ -25,6 +26,10 @@ class ChatController {
 
   Stream<List<ChatContact>> chatContacts() {
     return chatRepository.getChatContacts();
+  }
+
+  Stream<List<Message>> chatStream(String receiverUserId) {
+    return chatRepository.getChatStream(receiverUserId);
   }
 
   void sendTextMessage(

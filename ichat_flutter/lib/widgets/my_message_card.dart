@@ -29,7 +29,7 @@ class MyMessageCard extends StatelessWidget {
                   left: 10,
                   right: 30,
                   top: 5,
-                  bottom: 20,
+                  bottom: 25,
                 ),
                 child: Text(
                   message,
