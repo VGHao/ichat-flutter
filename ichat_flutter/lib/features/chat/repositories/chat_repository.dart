@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ichat_flutter/common/enums/message_enum.dart';
 import 'package:ichat_flutter/common/utils/utils.dart';
-import 'package:ichat_flutter/info.dart';
 import 'package:ichat_flutter/models/chat_contact.dart';
 import 'package:ichat_flutter/models/message.dart';
 import 'package:ichat_flutter/models/user_model.dart';

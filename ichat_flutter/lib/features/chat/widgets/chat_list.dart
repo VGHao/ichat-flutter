@@ -4,13 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ichat_flutter/common/widgets/loader.dart';
-
 import 'package:ichat_flutter/features/chat/controller/chat_controller.dart';
 import 'package:intl/intl.dart';
-
 import '../../../models/message.dart';
-import '../../../widgets/my_message_card.dart';
-import '../../../widgets/sender_message_card.dart';
+import 'my_message_card.dart';
+import 'sender_message_card.dart';
 
 class ChatList extends ConsumerStatefulWidget {
   final String receiverUserId;

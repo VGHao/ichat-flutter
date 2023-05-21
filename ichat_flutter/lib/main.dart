@@ -9,8 +9,6 @@ import 'package:ichat_flutter/router.dart';
 import 'colors.dart';
 import 'common/widgets/loader.dart';
 import 'screens/mobile_layout_screen.dart';
-import 'screens/web_layout_screen.dart';
-import 'utils/responsive_layout.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

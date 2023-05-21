@@ -69,23 +69,6 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
               onPressed: () {},
             ),
           ],
-          // bottom: const TabBar(
-          //   indicatorColor: tabColor,
-          //   indicatorWeight: 4,
-          //   labelColor: tabColor,
-          //   unselectedLabelColor: Colors.grey,
-          //   labelStyle: TextStyle(
-          //     fontWeight: FontWeight.bold,
-          //   ),
-          //   tabs: [
-          //     Tab(
-          //       text: 'CHATS',
-          //     ),
-          //     Tab(
-          //       text: 'STATUS',
-          //     ),
-          //   ],
-          // ),
         ),
         body: Column(
           children: [

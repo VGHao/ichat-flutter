@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import '../../../colors.dart';
 
-import '../colors.dart';
+class MyMessageCard extends StatelessWidget {
+  final String message;
+  final String date;
+  final bool isSeen;
 
-class SenderMessageCard extends StatelessWidget {
-  const SenderMessageCard({
+  MyMessageCard({
     Key? key,
     required this.message,
     required this.date,
+    required this.isSeen,
   }) : super(key: key);
-  final String message;
-  final String date;
 
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.centerLeft,
+      alignment: Alignment.centerRight,
       child: ConstrainedBox(
         constraints: BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width - 45,
@@ -22,7 +24,7 @@ class SenderMessageCard extends StatelessWidget {
         child: Card(
           elevation: 1,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          color: senderMessageColor,
+          color: messageColor,
           margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: Stack(
             children: [
@@ -31,7 +33,7 @@ class SenderMessageCard extends StatelessWidget {
                   left: 10,
                   right: 30,
                   top: 5,
-                  bottom: 20,
+                  bottom: 25,
                 ),
                 child: Text(
                   message,
@@ -41,14 +43,26 @@ class SenderMessageCard extends StatelessWidget {
                 ),
               ),
               Positioned(
-                bottom: 2,
+                bottom: 4,
                 right: 10,
-                child: Text(
-                  date,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey[600],
-                  ),
+                child: Row(
+                  children: [
+                    Text(
+                      date,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        color: Colors.white60,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Icon(
+                      isSeen ? Icons.done_all : Icons.done,
+                      size: 20,
+                      color: isSeen ? Colors.blue : Colors.white60,
+                    ),
+                  ],
                 ),
               ),
             ],
