@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ichat_flutter/features/select_contacts/screens/select_contacts_screen.dart';
 
 import '../colors.dart';
-import '../widgets/contacts_list.dart';
+import '../features/chat/widgets/contacts_list.dart';
 
 class MobileLayoutScreen extends StatelessWidget {
   const MobileLayoutScreen({Key? key}) : super(key: key);
@@ -34,25 +34,31 @@ class MobileLayoutScreen extends StatelessWidget {
               onPressed: () {},
             ),
           ],
-          bottom: const TabBar(
-            indicatorColor: tabColor,
-            indicatorWeight: 4,
-            labelColor: tabColor,
-            unselectedLabelColor: Colors.grey,
-            labelStyle: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-            tabs: [
-              Tab(
-                text: 'CHATS',
-              ),
-              Tab(
-                text: 'STATUS',
-              ),
-            ],
-          ),
+          // bottom: const TabBar(
+          //   indicatorColor: tabColor,
+          //   indicatorWeight: 4,
+          //   labelColor: tabColor,
+          //   unselectedLabelColor: Colors.grey,
+          //   labelStyle: TextStyle(
+          //     fontWeight: FontWeight.bold,
+          //   ),
+          //   tabs: [
+          //     Tab(
+          //       text: 'CHATS',
+          //     ),
+          //     Tab(
+          //       text: 'STATUS',
+          //     ),
+          //   ],
+          // ),
         ),
-        body: const ContactsList(),
+        body: Column(
+          children: [
+            Expanded(
+              child: ContactsList(),
+            ),
+          ],
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.pushNamed(context, SelectContactsScreen.routeName);
