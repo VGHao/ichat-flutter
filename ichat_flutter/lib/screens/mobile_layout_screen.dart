@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ichat_flutter/features/auth/controller/auth_controller.dart';
+import 'package:ichat_flutter/features/auth/screens/login_screen.dart';
 import 'package:ichat_flutter/features/select_contacts/screens/select_contacts_screen.dart';
 
 import '../colors.dart';
@@ -22,12 +23,6 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
-  }
-
-  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     switch (state) {
@@ -40,6 +35,16 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
         ref.read(authControllerProvider).setUserState(false);
         break;
     }
+  }
+
+  void signOut() {
+    ref.read(authControllerProvider).signOut(context: context);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   @override
@@ -64,10 +69,27 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
               icon: const Icon(Icons.search, color: Colors.grey),
               onPressed: () {},
             ),
-            IconButton(
-              icon: const Icon(Icons.more_vert, color: Colors.grey),
-              onPressed: () {},
+            PopupMenuButton(
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  onTap: signOut,
+                  child: Row(
+                    children: [
+                      Icon(Icons.logout_rounded, color: Colors.red),
+                      SizedBox(width: 5),
+                      Text('Sign out'),
+                    ],
+                  ),
+                ),
+              ],
+              position: PopupMenuPosition.under,
+              icon: Icon(Icons.more_vert, color: Colors.grey),
             ),
+            // IconButton(
+            //   icon: const Icon(Icons.more_vert, color: Colors.grey),
+            //   onPressed: () {},
+            // ),
           ],
         ),
         body: Column(

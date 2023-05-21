@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ichat_flutter/common/repositories/common_firebase_storage_repository.dart';
 import 'package:ichat_flutter/common/utils/utils.dart';
+import 'package:ichat_flutter/features/auth/screens/login_screen.dart';
 import 'package:ichat_flutter/features/auth/screens/user_information_screen.dart';
 import 'package:ichat_flutter/models/user_model.dart';
 import 'package:ichat_flutter/screens/mobile_layout_screen.dart';
@@ -118,6 +119,11 @@ class AuthRepository {
     } catch (e) {
       showSnackBar(context: context, content: e.toString());
     }
+  }
+
+  void signOut({required BuildContext context}) {
+    auth.signOut().then(
+        (_) => Navigator.pushReplacementNamed(context, LoginScreen.routeName));
   }
 
   Stream<UserModel> userData(String userId) {
