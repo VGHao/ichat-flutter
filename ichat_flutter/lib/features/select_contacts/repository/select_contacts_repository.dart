@@ -5,7 +5,7 @@ import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ichat_flutter/common/utils/utils.dart';
 import 'package:ichat_flutter/models/user_model.dart';
-import 'package:ichat_flutter/screens/mobile_chat_screen.dart';
+import 'package:ichat_flutter/features/chat/screens/mobile_chat_screen.dart';
 
 final selectContactsRepositoryProvider = Provider(
   (ref) => SelectContactRepository(
@@ -45,7 +45,10 @@ class SelectContactRepository {
         );
         if (selectedPhoneNum == userData.phoneNumber) {
           isFound = true;
-          Navigator.pushNamed(context, MobileChatScreen.routeName);
+          Navigator.pushNamed(context, MobileChatScreen.routeName, arguments: {
+            'name': userData.name,
+            'uid': userData.uid,
+          });
         }
       }
 

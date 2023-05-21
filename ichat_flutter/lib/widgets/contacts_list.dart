@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../colors.dart';
 import '../info.dart';
-import '../screens/mobile_chat_screen.dart';
+import '../features/chat/screens/mobile_chat_screen.dart';
 
 class ContactsList extends StatelessWidget {
   const ContactsList({Key? key}) : super(key: key);
@@ -19,11 +19,11 @@ class ContactsList extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const MobileChatScreen(),
-                    ),
-                  );
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const MobileChatScreen(),
+                  //   ),
+                  // );
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
