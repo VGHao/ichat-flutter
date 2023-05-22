@@ -48,11 +48,13 @@ class AuthController {
   void saveUserDataToFirebase(
     BuildContext context,
     String name,
+    String imageLink,
     File? profilePic,
   ) {
     authRepository.saveUserDataToFirebase(
       name: name,
       profilePic: profilePic,
+      imageLink: imageLink,
       ref: ref,
       context: context,
     );
@@ -60,6 +62,7 @@ class AuthController {
 
   void signOut({required BuildContext context}) {
     authRepository.signOut(context: context);
+    ref.read(authRepositoryProvider).getCurrentUserData();
   }
 
   Stream<UserModel> userDataById(String userId) {

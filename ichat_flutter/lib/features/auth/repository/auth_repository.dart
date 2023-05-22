@@ -81,13 +81,13 @@ class AuthRepository {
   void saveUserDataToFirebase({
     required String name,
     required File? profilePic,
+    required String imageLink,
     required ProviderRef ref,
     required BuildContext context,
   }) async {
     try {
       String uid = auth.currentUser!.uid;
-      String photoUrl =
-          'https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg';
+      String photoUrl = imageLink;
 
       if (profilePic != null) {
         photoUrl = await ref
@@ -121,9 +121,12 @@ class AuthRepository {
     }
   }
 
-  void signOut({required BuildContext context}) {
-    auth.signOut().then(
-        (_) => Navigator.pushReplacementNamed(context, LoginScreen.routeName));
+  void signOut({required BuildContext context}) async {
+    await auth.signOut().then((_) {
+      // auth.currentUser!.delete();
+      // Restart.restartApp();
+      Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+    });
   }
 
   Stream<UserModel> userData(String userId) {

@@ -25,6 +25,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   void pickCountry() {
     showCountryPicker(
+      showPhoneCode: true,
+      favorite: ['VN', 'US'],
       context: context,
       onSelect: (Country _country) {
         setState(() {

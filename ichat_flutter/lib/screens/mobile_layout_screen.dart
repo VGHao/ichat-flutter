@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ichat_flutter/features/auth/controller/auth_controller.dart';
-import 'package:ichat_flutter/features/auth/screens/login_screen.dart';
 import 'package:ichat_flutter/features/select_contacts/screens/select_contacts_screen.dart';
 
 import '../colors.dart';
