@@ -27,20 +27,20 @@ class OTPScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Verifying your number'),
+        title: const Text('Verifying your number'),
         elevation: 0,
         backgroundColor: backgroundColor,
       ),
       body: Center(
         child: Column(
           children: [
-            SizedBox(height: 20),
-            Text('We have send an SMS with a code'),
+            const SizedBox(height: 20),
+            const Text('We have send an SMS with a code'),
             SizedBox(
               width: size.width * 0.5,
               child: TextField(
                 textAlign: TextAlign.center,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: '- - - - - -',
                   hintStyle: TextStyle(
                     fontSize: 30,

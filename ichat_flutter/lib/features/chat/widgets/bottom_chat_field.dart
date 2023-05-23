@@ -12,6 +12,7 @@ class BottomChatField extends ConsumerStatefulWidget {
   final String receiverUserId;
 
   const BottomChatField({
+    super.key,
     required this.receiverUserId,
   });
 
@@ -93,7 +94,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                     width: 50,
                     child: IconButton(
                       onPressed: toggleEmojiKeyboardContainer,
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.emoji_emotions,
                         color: Colors.grey,
                       ),
@@ -118,7 +119,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
               ),
               child: GestureDetector(
                 onTap: sendTextMessage,
-                child: CircleAvatar(
+                child: const CircleAvatar(
                   backgroundColor: Colors.blue,
                   radius: 20,
                   child: Icon(
@@ -138,7 +139,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                   textEditingController: _messageController,
                 ),
               )
-            : SizedBox(),
+            : const SizedBox(),
       ],
     );
   }

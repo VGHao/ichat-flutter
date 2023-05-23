@@ -13,7 +13,7 @@ import 'sender_message_card.dart';
 class ChatList extends ConsumerStatefulWidget {
   final String receiverUserId;
 
-  ChatList({
+  const ChatList({
     Key? key,
     required this.receiverUserId,
   }) : super(key: key);
@@ -38,7 +38,7 @@ class _ChatListState extends ConsumerState<ChatList> {
             ref.read(chatControllerProvider).chatStream(widget.receiverUserId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Loader();
+            return const Loader();
           }
 
           // Automatic scrolling on new message

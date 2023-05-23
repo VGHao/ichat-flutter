@@ -21,8 +21,8 @@ class LandingScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 50),
-                Text(
+                const SizedBox(height: 50),
+                const Text(
                   'Welcome to iChat',
                   style: TextStyle(
                     fontSize: 32,
@@ -37,8 +37,8 @@ class LandingScreen extends StatelessWidget {
                   color: tabColor,
                 ),
                 SizedBox(height: size.height / 9),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
+                const Padding(
+                  padding: EdgeInsets.all(15.0),
                   child: Text(
                     'Read our Privacy Policy. \n Tap "Agree and continue" to accept the Term of Service.',
                     style: TextStyle(
@@ -47,7 +47,7 @@ class LandingScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 SizedBox(
                   width: size.width * 0.75,
                   child: CustomButton(

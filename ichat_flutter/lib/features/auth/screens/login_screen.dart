@@ -28,9 +28,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       showPhoneCode: true,
       favorite: ['VN', 'US'],
       context: context,
-      onSelect: (Country _country) {
+      onSelect: (Country country) {
         setState(() {
-          country = _country;
+          country = country;
         });
       },
     );
@@ -56,7 +56,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text('Enter your phone number'),
+          title: const Text('Enter your phone number'),
           elevation: 0,
           backgroundColor: backgroundColor,
         ),
@@ -66,13 +66,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('iChat will need to verify your phone number.'),
-                SizedBox(height: 10),
+                const Text('iChat will need to verify your phone number.'),
+                const SizedBox(height: 10),
                 TextButton(
                   onPressed: pickCountry,
-                  child: Text('Pick Country'),
+                  child: const Text('Pick Country'),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Row(
                   children: [
                     if (country != null) Text('+${country!.phoneCode}'),
@@ -82,7 +82,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       child: TextField(
                         controller: phoneController,
                         keyboardType: TextInputType.phone,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'phone number',
                         ),
                       ),

@@ -22,15 +22,15 @@ class SelectContactsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select contact'),
+        title: const Text('Select contact'),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
           ),
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.more_vert),
+            icon: const Icon(Icons.more_vert),
           ),
         ],
       ),
@@ -54,14 +54,14 @@ class SelectContactsScreen extends ConsumerWidget {
                                 ),
                           title: Text(
                             contact.displayName,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 18,
                             ),
                           ),
                         ),
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       color: dividerColor,
                       thickness: 1,
                       height: 0.0,
@@ -71,7 +71,7 @@ class SelectContactsScreen extends ConsumerWidget {
               },
             ),
             error: (err, trace) => ErrorScreen(error: err.toString()),
-            loading: () => Loader(),
+            loading: () => const Loader(),
           ),
     );
   }

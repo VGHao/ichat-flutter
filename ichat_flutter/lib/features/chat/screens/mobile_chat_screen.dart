@@ -27,9 +27,9 @@ class MobileChatScreen extends ConsumerWidget {
             stream: ref.read(authControllerProvider).userDataById(uid),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Loader();
+                return const Loader();
               }
-              print(snapshot.data!.uid + " " + snapshot.data!.name);
+              // print(snapshot.data!.uid + " " + snapshot.data!.name);
               return Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -37,7 +37,7 @@ class MobileChatScreen extends ConsumerWidget {
                     backgroundImage: NetworkImage(snapshot.data!.profilePic),
                     radius: 20,
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +47,7 @@ class MobileChatScreen extends ConsumerWidget {
                           name,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        SizedBox(height: 2.0),
+                        const SizedBox(height: 2.0),
                         Row(
                           children: [
                             CircleAvatar(
@@ -56,7 +56,7 @@ class MobileChatScreen extends ConsumerWidget {
                                   : Colors.grey,
                               radius: 5,
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             Text(
                               snapshot.data!.isOnline ? 'online' : 'offline',
                               style: TextStyle(

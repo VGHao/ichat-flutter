@@ -45,7 +45,7 @@ class SelectContactRepository {
         );
         if (selectedPhoneNum == userData.phoneNumber) {
           isFound = true;
-          print("uid: ${userData.uid} \n name:${userData.name}");
+          // print("uid: ${userData.uid} \n name:${userData.name}");
           Navigator.pushNamed(
             context,
             MobileChatScreen.routeName,

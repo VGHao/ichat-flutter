@@ -56,14 +56,14 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text('Edit Profile'),
+        title: const Text('Edit Profile'),
       ),
       body: Center(
         child: FutureBuilder(
           future: ref.watch(authControllerProvider).getUserData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Loader();
+              return const Loader();
             }
             if (snapshot.data != null) {
               imageLink = snapshot.data!.profilePic;
@@ -71,7 +71,7 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
             }
             return Column(
               children: [
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Stack(
                   children: [
                     image == null
@@ -90,7 +90,7 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
                       left: 80,
                       child: IconButton(
                         onPressed: selectImage,
-                        icon: Icon(Icons.add_a_photo),
+                        icon: const Icon(Icons.add_a_photo),
                       ),
                     )
                   ],
@@ -100,10 +100,10 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
                     Expanded(
                       flex: 4,
                       child: Container(
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                         child: TextField(
                           controller: nameController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: 'Enter your name',
                           ),
                         ),
@@ -113,7 +113,7 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
                       flex: 1,
                       child: IconButton(
                         onPressed: storeUserData,
-                        icon: Icon(Icons.done),
+                        icon: const Icon(Icons.done),
                       ),
                     ),
                   ],

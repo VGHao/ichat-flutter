@@ -22,11 +22,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
     case UserInformationScreen.routeName:
       return MaterialPageRoute(
-        builder: (context) => UserInformationScreen(),
+        builder: (context) => const UserInformationScreen(),
       );
     case SelectContactsScreen.routeName:
       return MaterialPageRoute(
-        builder: (context) => SelectContactsScreen(),
+        builder: (context) => const SelectContactsScreen(),
       );
     case MobileChatScreen.routeName:
       final arguments = settings.arguments as Map<String, dynamic>;
@@ -37,8 +37,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
     default:
       return MaterialPageRoute(
-        builder: (context) =>
-            Scaffold(body: ErrorScreen(error: 'This page doesn\'t exist')),
+        builder: (context) => const Scaffold(
+            body: ErrorScreen(error: 'This page doesn\'t exist')),
       );
   }
 }

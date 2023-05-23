@@ -6,7 +6,7 @@ class MyMessageCard extends StatelessWidget {
   final String date;
   final bool isSeen;
 
-  MyMessageCard({
+  const MyMessageCard({
     Key? key,
     required this.message,
     required this.date,

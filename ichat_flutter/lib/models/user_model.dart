@@ -1,9 +1,11 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class UserModel {
   final String uid;
   final String name;
   final String profilePic;
   final bool isOnline;
   final String phoneNumber;
+  final String? notifyToken;
   final List<String> groupId;
 
   UserModel({
@@ -12,6 +14,7 @@ class UserModel {
     required this.profilePic,
     required this.isOnline,
     required this.phoneNumber,
+    required this.notifyToken,
     required this.groupId,
   });
 
@@ -22,6 +25,7 @@ class UserModel {
       'profilePic': profilePic,
       'isOnline': isOnline,
       'phoneNumber': phoneNumber,
+      'notifyToken': notifyToken,
       'groupId': groupId,
     };
   }
@@ -33,6 +37,7 @@ class UserModel {
       profilePic: map['profilePic'] ?? '',
       isOnline: map['isOnline'] ?? false,
       phoneNumber: map['phoneNumber'] ?? '',
+      notifyToken: map['notifyToken'] ?? '',
       groupId: List<String>.from(map['groupId']),
     );
   }
