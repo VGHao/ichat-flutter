@@ -4,7 +4,9 @@ import 'package:ichat_flutter/features/auth/controller/auth_controller.dart';
 import 'package:ichat_flutter/features/select_contacts/screens/select_contacts_screen.dart';
 
 import '../colors.dart';
+import '../common/widgets/loader.dart';
 import '../features/chat/widgets/contacts_list.dart';
+import '../models/user_model.dart';
 
 class MobileLayoutScreen extends ConsumerStatefulWidget {
   const MobileLayoutScreen({Key? key}) : super(key: key);
@@ -15,6 +17,8 @@ class MobileLayoutScreen extends ConsumerStatefulWidget {
 
 class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
     with WidgetsBindingObserver {
+  UserModel? currentUserData;
+
   @override
   void initState() {
     super.initState();
@@ -36,6 +40,12 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
     }
   }
 
+  void getCurrentUserData() async {
+    await ref.read(authControllerProvider).getUserData().then((value) {
+      currentUserData = value;
+    });
+  }
+
   void signOut() {
     ref.read(authControllerProvider).signOut(context: context);
   }
@@ -48,6 +58,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
 
   @override
   Widget build(BuildContext context) {
+    getCurrentUserData();
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -71,7 +82,32 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
             PopupMenuButton(
               itemBuilder: (context) => [
                 PopupMenuItem(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        backgroundImage:
+                            NetworkImage(currentUserData!.profilePic),
+                        radius: 25,
+                      ),
+                      SizedBox(width: 10),
+                      ConstrainedBox(
+                        constraints:
+                            BoxConstraints(minWidth: 80, maxWidth: 200),
+                        child: Text(
+                          currentUserData!.name,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                PopupMenuItem(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
                   onTap: signOut,
                   child: Row(
                     children: [

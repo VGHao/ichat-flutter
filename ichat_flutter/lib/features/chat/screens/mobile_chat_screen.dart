@@ -32,12 +32,26 @@ class MobileChatScreen extends ConsumerWidget {
               return Column(
                 children: [
                   Text(name),
-                  Text(
-                    snapshot.data!.isOnline ? 'online' : 'offline',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.normal,
-                    ),
+                  SizedBox(height: 2.0),
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: snapshot.data!.isOnline
+                            ? Colors.green
+                            : Colors.grey,
+                        radius: 5,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        snapshot.data!.isOnline ? 'online' : 'offline',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: snapshot.data!.isOnline
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               );

@@ -139,11 +139,11 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                 vertical: 10.0,
                 horizontal: 5.0,
               ),
-              child: CircleAvatar(
-                backgroundColor: Colors.blue,
-                radius: 20,
-                child: GestureDetector(
-                  onTap: sendTextMessage,
+              child: GestureDetector(
+                onTap: sendTextMessage,
+                child: CircleAvatar(
+                  backgroundColor: Colors.blue,
+                  radius: 20,
                   child: Icon(
                     Icons.send,
                     size: 16,
@@ -151,7 +151,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
         isShowEmojiContainer
