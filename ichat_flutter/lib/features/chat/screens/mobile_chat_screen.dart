@@ -29,29 +29,47 @@ class MobileChatScreen extends ConsumerWidget {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Loader();
               }
-              return Column(
+              print(snapshot.data!.uid + " " + snapshot.data!.name);
+              return Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(name),
-                  SizedBox(height: 2.0),
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: snapshot.data!.isOnline
-                            ? Colors.green
-                            : Colors.grey,
-                        radius: 5,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        snapshot.data!.isOnline ? 'online' : 'offline',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: snapshot.data!.isOnline
-                              ? FontWeight.bold
-                              : FontWeight.normal,
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(snapshot.data!.profilePic),
+                    radius: 20,
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          name,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                    ],
+                        SizedBox(height: 2.0),
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: snapshot.data!.isOnline
+                                  ? Colors.green
+                                  : Colors.grey,
+                              radius: 5,
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              snapshot.data!.isOnline ? 'online' : 'offline',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: snapshot.data!.isOnline
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               );

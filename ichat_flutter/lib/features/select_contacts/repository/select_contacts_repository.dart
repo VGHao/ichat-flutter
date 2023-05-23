@@ -45,10 +45,15 @@ class SelectContactRepository {
         );
         if (selectedPhoneNum == userData.phoneNumber) {
           isFound = true;
-          Navigator.pushNamed(context, MobileChatScreen.routeName, arguments: {
-            'name': userData.name,
-            'uid': userData.uid,
-          });
+          print("uid: ${userData.uid} \n name:${userData.name}");
+          Navigator.pushNamed(
+            context,
+            MobileChatScreen.routeName,
+            arguments: {
+              'name': userData.name,
+              'uid': userData.uid,
+            },
+          );
         }
       }
 

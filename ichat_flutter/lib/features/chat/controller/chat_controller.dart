@@ -37,7 +37,7 @@ class ChatController {
     String text,
     String receiverUserId,
   ) {
-    ref.watch(userDataAuthProvider).whenData(
+    ref.read(authControllerProvider).getUserData().then(
           (value) => chatRepository.sendTextMessage(
             context: context,
             text: text,

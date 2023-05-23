@@ -26,7 +26,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
 
   void sendTextMessage() async {
     if (_messageController.text.isNotEmpty) {
-      ref.watch(chatControllerProvider).sendTextMessage(
+      ref.read(chatControllerProvider).sendTextMessage(
             context,
             _messageController.text.trim(),
             widget.receiverUserId,
@@ -99,29 +99,6 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                       ),
                     ),
                   ),
-                  // suffixIcon: SizedBox(
-                  //   width: 100,
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.end,
-                  //     children: [
-                  //       IconButton(
-                  //         onPressed: () {},
-                  //         icon: Icon(
-                  //           Icons.camera_alt,
-                  //           color: Colors.grey,
-                  //         ),
-                  //       ),
-                  //       SizedBox(width: 5),
-                  //       IconButton(
-                  //         onPressed: () {},
-                  //         icon: Icon(
-                  //           Icons.attach_file,
-                  //           color: Colors.grey,
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
                   hintText: 'Type a message...',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0),
