@@ -53,7 +53,7 @@ class AuthRepository {
           }
         },
         verificationFailed: (e) {
-          throw Exception(e.message);
+          showSnackBar(context: context, content: e.toString());
         },
         codeSent: (String verificationId, int? resendToken) async {
           Navigator.pushNamed(
