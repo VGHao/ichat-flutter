@@ -9,12 +9,12 @@ import '../widgets/bottom_chat_field.dart';
 
 class MobileChatScreen extends ConsumerWidget {
   static const String routeName = '/mobile-chat-screen';
-  final String name;
+  // final String name;
   final String uid;
 
   const MobileChatScreen({
     Key? key,
-    required this.name,
+    // required this.name,
     required this.uid,
   }) : super(key: key);
 
@@ -44,7 +44,7 @@ class MobileChatScreen extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          name,
+                          snapshot.data!.name,
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 2.0),

@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ichat_flutter/common/widgets/error.dart';
@@ -10,14 +13,21 @@ import 'colors.dart';
 import 'common/widgets/loader.dart';
 import 'screens/mobile_layout_screen.dart';
 
+Future<void> _firebaseMessagingBackgroundHandler(message) async {
+  log('Handling a background message ${message.messageId}');
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseMessaging.instance.getInitialMessage();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   runApp(
-    ProviderScope(
-      child: const MyApp(),
+    const ProviderScope(
+      child: MyApp(),
     ),
   );
 }
@@ -32,7 +42,7 @@ class MyApp extends ConsumerWidget {
       title: 'iChat',
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: backgroundColor,
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           color: appBarColor,
         ),
       ),
@@ -40,14 +50,14 @@ class MyApp extends ConsumerWidget {
       home: ref.watch(userDataAuthProvider).when(
             data: (user) {
               if (user == null) {
-                return LandingScreen();
+                return const LandingScreen();
               }
-              return MobileLayoutScreen();
+              return const MobileLayoutScreen();
             },
             error: (err, trace) {
               return ErrorScreen(error: err.toString());
             },
-            loading: () => Loader(),
+            loading: () => const Loader(),
           ),
     );
   }

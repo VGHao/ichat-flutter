@@ -1,8 +1,11 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ichat_flutter/features/auth/controller/auth_controller.dart';
 import 'package:ichat_flutter/features/select_contacts/screens/select_contacts_screen.dart';
 import '../colors.dart';
+import '../features/chat/screens/mobile_chat_screen.dart';
 import '../features/chat/widgets/contacts_list.dart';
 import '../models/user_model.dart';
 
@@ -16,11 +19,97 @@ class MobileLayoutScreen extends ConsumerStatefulWidget {
 class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
     with WidgetsBindingObserver {
   UserModel? currentUserData;
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    requestPermission();
+    initInfo();
+  }
+
+  void requestPermission() async {
+    FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await firebaseMessaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or has not accepted permission');
+    }
+  }
+
+  initInfo() {
+    var androidInitialize =
+        const AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationsSettings =
+        InitializationSettings(android: androidInitialize);
+    flutterLocalNotificationsPlugin.initialize(
+      initializationsSettings,
+      onDidReceiveNotificationResponse:
+          (NotificationResponse notificationResponse) {
+        final String? payload = notificationResponse.payload;
+        if (payload != null && payload.isNotEmpty) {
+          // debugPrint('notification payload: $payload \n');
+          Navigator.pushNamed(
+            context,
+            MobileChatScreen.routeName,
+            arguments: {
+              'uid': payload,
+            },
+          );
+        }
+      },
+    );
+
+    FirebaseMessaging.onMessage.listen(
+      (message) async {
+        print("................onMessage...............");
+        print(
+            "onMessage: ${message.notification?.title} / ${message.notification?.body}");
+
+        BigTextStyleInformation bigTextStyleInformation =
+            BigTextStyleInformation(
+          message.notification!.body.toString(),
+          htmlFormatBigText: true,
+          contentTitle: message.notification!.title.toString(),
+          htmlFormatContentTitle: true,
+        );
+        AndroidNotificationDetails androidPlatformChannelSpecifics =
+            AndroidNotificationDetails(
+          "ichat",
+          "ihat",
+          importance: Importance.high,
+          styleInformation: bigTextStyleInformation,
+          priority: Priority.high,
+          playSound: true,
+        );
+        NotificationDetails platformChannelSpecifics = NotificationDetails(
+          android: androidPlatformChannelSpecifics,
+        );
+        await flutterLocalNotificationsPlugin.show(
+          0,
+          message.notification?.title,
+          message.notification?.body,
+          platformChannelSpecifics,
+          payload: message.data['uid'],
+        );
+      },
+    );
   }
 
   @override
@@ -80,8 +169,8 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
             PopupMenuButton(
               itemBuilder: (context) => [
                 PopupMenuItem(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 2.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -90,10 +179,10 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
                             NetworkImage(currentUserData!.profilePic),
                         radius: 25,
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       ConstrainedBox(
                         constraints:
-                            BoxConstraints(minWidth: 80, maxWidth: 200),
+                            const BoxConstraints(minWidth: 80, maxWidth: 200),
                         child: Text(
                           currentUserData!.name,
                           maxLines: 2,
@@ -104,10 +193,10 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
                   ),
                 ),
                 PopupMenuItem(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 2.0),
                   onTap: signOut,
-                  child: Row(
+                  child: const Row(
                     children: [
                       Icon(Icons.logout_rounded, color: Colors.red),
                       SizedBox(width: 5),
@@ -117,7 +206,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
                 ),
               ],
               position: PopupMenuPosition.under,
-              icon: Icon(Icons.more_vert, color: Colors.grey),
+              icon: const Icon(Icons.more_vert, color: Colors.grey),
             ),
             // IconButton(
             //   icon: const Icon(Icons.more_vert, color: Colors.grey),
@@ -125,7 +214,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
             // ),
           ],
         ),
-        body: Column(
+        body: const Column(
           children: [
             Expanded(
               child: ContactsList(),

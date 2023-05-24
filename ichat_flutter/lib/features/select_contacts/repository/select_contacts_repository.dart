@@ -46,11 +46,11 @@ class SelectContactRepository {
         if (selectedPhoneNum == userData.phoneNumber) {
           isFound = true;
           // print("uid: ${userData.uid} \n name:${userData.name}");
+          // ignore: use_build_context_synchronously
           Navigator.pushNamed(
             context,
             MobileChatScreen.routeName,
             arguments: {
-              'name': userData.name,
               'uid': userData.uid,
             },
           );
@@ -58,6 +58,7 @@ class SelectContactRepository {
       }
 
       if (!isFound) {
+        // ignore: use_build_context_synchronously
         showSnackBar(
           context: context,
           content: 'This number does not exist on this app.',

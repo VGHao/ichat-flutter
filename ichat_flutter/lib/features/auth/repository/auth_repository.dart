@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ichat_flutter/common/repositories/common_firebase_storage_repository.dart';
@@ -42,7 +43,14 @@ class AuthRepository {
       await auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
         verificationCompleted: (PhoneAuthCredential credential) async {
-          await auth.signInWithCredential(credential);
+          try {
+            await auth.signInWithCredential(credential).then(
+                  (value) => Navigator.pushNamedAndRemoveUntil(context,
+                      UserInformationScreen.routeName, (route) => false),
+                );
+          } on FirebaseAuthException catch (e) {
+            showSnackBar(context: context, content: e.toString());
+          }
         },
         verificationFailed: (e) {
           throw Exception(e.message);
@@ -61,16 +69,18 @@ class AuthRepository {
     }
   }
 
-  void verifyOTP(
-      {required BuildContext context,
-      required String verificationId,
-      required String userOTP}) async {
+  void verifyOTP({
+    required BuildContext context,
+    required String verificationId,
+    required String userOTP,
+  }) async {
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId,
         smsCode: userOTP,
       );
       await auth.signInWithCredential(credential);
+      // ignore: use_build_context_synchronously
       Navigator.pushNamedAndRemoveUntil(
           context, UserInformationScreen.routeName, (route) => false);
     } on FirebaseAuthException catch (e) {
@@ -88,6 +98,12 @@ class AuthRepository {
     try {
       String uid = auth.currentUser!.uid;
       String photoUrl = imageLink;
+      String? notifyToken;
+
+      await FirebaseMessaging.instance.getToken().then((value) {
+        notifyToken = value;
+        // print('My token is $notifyToken');
+      });
 
       if (profilePic != null) {
         photoUrl = await ref
@@ -104,24 +120,29 @@ class AuthRepository {
         profilePic: photoUrl,
         isOnline: true,
         phoneNumber: auth.currentUser!.phoneNumber!,
+        notifyToken: notifyToken,
         groupId: [],
       );
 
-      await firestore.collection('users').doc(uid).set(user.toMap());
-
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const MobileLayoutScreen(),
-        ),
-        (route) => false,
-      );
+      await firestore.collection('users').doc(uid).set(user.toMap()).then(
+            (value) => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const MobileLayoutScreen(),
+              ),
+              (route) => false,
+            ),
+          );
     } catch (e) {
       showSnackBar(context: context, content: e.toString());
     }
   }
 
   void signOut({required BuildContext context}) async {
+    await firestore
+        .collection('users')
+        .doc(auth.currentUser!.uid)
+        .update({'notifyToken': ''});
     await auth.signOut().then((_) {
       // auth.currentUser!.delete();
       // Restart.restartApp();

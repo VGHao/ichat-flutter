@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,7 @@ import 'package:ichat_flutter/models/chat_contact.dart';
 import 'package:ichat_flutter/models/message.dart';
 import 'package:ichat_flutter/models/user_model.dart';
 import 'package:uuid/uuid.dart';
+import 'package:http/http.dart' as http;
 
 final chatRepositoryProvider = Provider(
   (ref) => ChatRepository(
@@ -30,6 +33,7 @@ class ChatRepository {
         .collection('users')
         .doc(auth.currentUser!.uid)
         .collection('chats')
+        .orderBy('timeSent', descending: true)
         .snapshots()
         .asyncMap(
       (event) async {
@@ -154,6 +158,38 @@ class ChatRepository {
         );
   }
 
+  void sendPushNotificationMessage(
+      String? token, String uid, String title, String body) async {
+    if (token != null && token.isNotEmpty) {
+      await http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization':
+              'key=AAAAYwXISg4:APA91bG3LKyseghVmdvZDUFScHfUKCgJSMKcIoReA-8W4744r-LEu0mILmodfrd3nYPTsEWzAR171P_rU10Bk8izenKp3-zqf7nigDC9zHpbzXiALq0iIFfp52VC-5ECdHylqxnvVzs-',
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            'priority': 'high',
+            'data': <String, dynamic>{
+              'click-action': 'FLUTTER_NOTIFICATION_CLICK',
+              'status': 'done',
+              'uid': uid,
+              'body': body,
+              'title': title,
+            },
+            'notification': <String, dynamic>{
+              'title': title,
+              'body': body,
+              'android_channel_id': 'ichat',
+            },
+            'to': token,
+          },
+        ),
+      );
+    }
+  }
+
   void sendTextMessage({
     required BuildContext context,
     required String text,
@@ -186,6 +222,13 @@ class ChatRepository {
         text: text,
         timeSent: timeSent,
         username: senderUser.name,
+      );
+
+      sendPushNotificationMessage(
+        receiverUserData.notifyToken,
+        senderUser.uid,
+        senderUser.name,
+        text,
       );
     } catch (e) {
       showSnackBar(context: context, content: e.toString());
