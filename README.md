@@ -8,6 +8,10 @@
 	- Chọn người nhắn tin qua danh bạ trong điện thoại
 	- Nhắn tin realtime
 	- Gửi thông báo khi có tin nhắn đến
+
+# Hạn chế
+Firebase giới hạn lượng sms code được gửi đến 1 thiết bị (để tránh spam), khi thiết bị request sms code nhiều lần sẽ bị Firebase chặn trong thời gian ngắn.
+
 # Cài đặt
 	- Bằng cmd:
 		+ flutter pub get
